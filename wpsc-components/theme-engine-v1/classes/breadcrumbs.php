@@ -84,7 +84,8 @@ function wpsc_output_breadcrumbs( $options = null ) {
 		'crumb-separator'    => ' &raquo; ',
 		'show_home_page'     => true,
 		'show_products_page' => true,
-		'echo'               => true
+		'echo'               => true,
+                'show_current_page'  => true
 	) );
 
 	$output = '';
@@ -121,12 +122,12 @@ function wpsc_output_breadcrumbs( $options = null ) {
 	while ( wpsc_have_breadcrumbs() ) {
 		wpsc_the_breadcrumb();
 		if ( !empty( $output ) ) {
-			$output .= $options['crumb-separator'];
+                        $output .= $options['crumb-separator'];
 		}
 		$output .= $options['before-crumb'];
 		if ( wpsc_breadcrumb_url() ) {
 			$output .= '<a class="wpsc-crumb" id="wpsc-crumb-' . wpsc_breadcrumb_slug() . '" href="' . wpsc_breadcrumb_url() . '">' . wpsc_breadcrumb_name() . '</a>';
-		} else {
+		} elseif ($options['show_current_page']) {
 			$output .= '<span class="wpsc-crumb" id="wpsc-crumb-' . wpsc_breadcrumb_slug() . '">' . wpsc_breadcrumb_name() . '</span>';
 		}
 		$output .= $options['after-crumb'];
